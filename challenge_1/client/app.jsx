@@ -4,18 +4,25 @@ import axios from "axios";
 
 import ENDPOINTS from "./endpoints";
 
+const PAGE_SIZE = 20;
+
 class SearchHistory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: []
+      searchResults: [],
+      resultsPage: 1
     };
     this.handleSearch = this.handleSearch.bind(this);
   }
 
   handleSearch(e) {
     const { value } = e.target;
-    axios.get(`${ENDPOINTS.searchApi}/?q=${value}`).then(results => {
+    const { resultsPage } = this.state;
+    const url = `${
+      ENDPOINTS.searchApi
+    }/?q=${value}&_page=${resultsPage}&_limit=${PAGE_SIZE}`;
+    axios.get(url).then(results => {
       this.setState({ searchResults: results.data });
     });
   }
