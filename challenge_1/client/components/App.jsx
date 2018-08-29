@@ -1,6 +1,9 @@
 import React from "react";
 import axios from "axios";
 
+import Search from "./Search.jsx";
+import ResultList from "./ResultList.jsx";
+
 import urlParser from "../helpers/urlParser";
 import ENDPOINTS from "../helpers/endpoints";
 
@@ -46,10 +49,8 @@ export default class App extends React.Component {
     const { searchResults } = this.state;
     return (
       <div>
-        <input onChange={this.updateSearchQuery} onKeyUp={this.submitSearch} />
-        {searchResults.map(searchResult => (
-          <div>{JSON.stringify(searchResult)}</div>
-        ))}
+        <Search update={this.updateSearchQuery} submit={this.submitSearch} />
+        <ResultList results={searchResults} />
       </div>
     );
   }
