@@ -10,19 +10,32 @@ class SearchHistory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      searchQuery: "",
       searchResults: [],
-      resultsPage: 1
+      currentPage: 1
     };
-    this.handleSearch = this.handleSearch.bind(this);
+    this.updateSearchQuery = this.updateSearchQuery.bind(this);
+    this.submitSearch = this.submitSearch.bind(this);
   }
 
-  handleSearch(e) {
+  updateSearchQuery(e) {
     const { value } = e.target;
-    const { resultsPage } = this.state;
+    this.setState({ searchQuery: value });
+  }
+
+  submitSearch(e) {
+    if (e.key === "Enter") {
+      this.executeSearch();
+    }
+  }
+
+  executeSearch() {
+    const { searchQuery } = this.state;
     const url = `${
       ENDPOINTS.searchApi
-    }/?q=${value}&_page=${resultsPage}&_limit=${PAGE_SIZE}`;
+    }/?q=${searchQuery}&_page=1&_limit=${PAGE_SIZE}`;
     axios.get(url).then(results => {
+      console.log(results);
       this.setState({ searchResults: results.data });
     });
   }
@@ -31,7 +44,7 @@ class SearchHistory extends React.Component {
     const { searchResults } = this.state;
     return (
       <div>
-        <input onChange={this.handleSearch} />
+        <input onChange={this.updateSearchQuery} onKeyUp={this.submitSearch} />
         {searchResults.map(searchResult => (
           <div>{JSON.stringify(searchResult)}</div>
         ))}
