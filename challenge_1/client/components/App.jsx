@@ -3,11 +3,12 @@ import axios from "axios";
 
 import Search from "./Search.jsx";
 import ResultList from "./ResultList.jsx";
+import Pages from "./Pages.jsx";
 
 import urlParser from "../helpers/urlParser";
 import ENDPOINTS from "../helpers/endpoints";
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 10;
 
 export default class App extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class App extends React.Component {
     };
     this.updateSearchQuery = this.updateSearchQuery.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
+    this.changePage = this.changePage.bind(this);
   }
 
   updateSearchQuery(e) {
@@ -45,12 +47,30 @@ export default class App extends React.Component {
     });
   }
 
+  changePage(pageNumber) {
+    const { searchQuery } = this.state;
+    const url = `${
+      ENDPOINTS.searchApi
+    }/?q=${searchQuery}&_page=${pageNumber}&_limit=${PAGE_SIZE}`;
+    axios.get(url).then(results => {
+      this.setState({
+        searchResults: results.data,
+        currentPage: pageNumber
+      });
+    });
+  }
+
   render() {
-    const { searchResults } = this.state;
+    const { searchResults, currentPage, lastPage } = this.state;
     return (
       <div>
         <Search update={this.updateSearchQuery} submit={this.submitSearch} />
         <ResultList results={searchResults} />
+        <Pages
+          currentPage={currentPage}
+          lastPage={lastPage}
+          changePage={this.changePage}
+        />
       </div>
     );
   }

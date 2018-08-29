@@ -1,5 +1,7 @@
 import React from "react";
 
 export default ({ update, submit }) => (
-  <input onChange={update} onKeyUp={submit} />
+  <div>
+    <input onChange={update} onKeyUp={submit} />
+  </div>
 );
