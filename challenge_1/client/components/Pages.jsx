@@ -10,9 +10,9 @@ export default ({ currentPage, lastPage, changePage }) => {
       {pages.map((val, idx) => {
         if (showPage(val, currentPage, lastPage)) {
           return (
-            <div onClick={() => changePage(val)}>
-              {val} {!showPage(val + 1, currentPage, lastPage) ? "..." : ""}
-            </div>
+            <span onClick={() => changePage(val)}>
+              {val} {!showPage(val + 1, currentPage, lastPage) ? "... " : ""}
+            </span>
           );
         }
       })}
