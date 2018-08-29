@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode development"
+    "build": "webpack --mode development",
+    "start": "node server.js --static"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "json-server": "^0.14.0",
     "path": "^0.12.7",
     "react": "^16.4.2",
     "react-dom": "^16.4.2"
