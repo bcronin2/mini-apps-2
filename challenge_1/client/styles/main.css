@@ -1,0 +1,8 @@
+.page-number {
+  color: blue;
+  cursor: pointer;
+}
+
+.page-number.selected {
+  font-weight: 800;
+}

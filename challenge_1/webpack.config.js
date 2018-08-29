@@ -12,6 +12,10 @@ const RULES = [
         presets: ["@babel/react", "@babel/preset-env"]
       }
     }
+  },
+  {
+    test: /\.css$/,
+    use: ["style-loader", "css-loader"]
   }
 ];
 
