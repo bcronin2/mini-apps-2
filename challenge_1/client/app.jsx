@@ -15,7 +15,7 @@ class SearchHistory extends React.Component {
 
   handleSearch(e) {
     const { value } = e.target;
-    axios.get(ENDPOINTS.searchApi).then(results => {
+    axios.get(`${ENDPOINTS.searchApi}/?q=${value}`).then(results => {
       this.setState({ searchResults: results.data });
     });
   }
