@@ -1,18 +1,19 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import axios from "axios";
 
-import ENDPOINTS from "./endpoints";
+import urlParser from "../helpers/urlParser";
+import ENDPOINTS from "../helpers/endpoints";
 
 const PAGE_SIZE = 20;
 
-class SearchHistory extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchQuery: "",
       searchResults: [],
-      currentPage: 1
+      currentPage: 1,
+      lastPage: 1
     };
     this.updateSearchQuery = this.updateSearchQuery.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
@@ -35,8 +36,9 @@ class SearchHistory extends React.Component {
       ENDPOINTS.searchApi
     }/?q=${searchQuery}&_page=1&_limit=${PAGE_SIZE}`;
     axios.get(url).then(results => {
-      console.log(results);
-      this.setState({ searchResults: results.data });
+      const { link } = results.headers;
+      const lastPage = urlParser.getLastPage(link);
+      this.setState({ lastPage, searchResults: results.data });
     });
   }
 
@@ -52,5 +54,3 @@ class SearchHistory extends React.Component {
     );
   }
 }
-
-ReactDOM.render(<SearchHistory />, document.getElementById("container"));
