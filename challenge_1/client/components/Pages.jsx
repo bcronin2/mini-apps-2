@@ -10,13 +10,23 @@ export default ({ currentPage, lastPage, changePage }) => {
       {pages.map((val, idx) => {
         if (showPage(val, currentPage, lastPage)) {
           return (
-            <span
-              className={`page-number ${val === currentPage ? "selected" : ""}`}
-              onClick={() => changePage(val)}
-            >
-              {val}
-              {"  "}
-              {!showPage(val + 1, currentPage, lastPage) ? "...  " : ""}
+            <span>
+              <span
+                className={`page-number ${
+                  val === currentPage ? "selected" : ""
+                }`}
+                onClick={() => changePage(val)}
+              >
+                {val}
+              </span>
+              {!showPage(val + 1, currentPage, lastPage) && (
+                <span
+                  className="page-number"
+                  onClick={() => changePage(val + 1)}
+                >
+                  ...
+                </span>
+              )}
             </span>
           );
         }
