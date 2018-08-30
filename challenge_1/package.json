@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fs": "0.0.1-security",
     "json-server": "^0.14.0",
     "path": "^0.12.7",
     "react": "^16.4.2",
