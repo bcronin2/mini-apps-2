@@ -21,7 +21,7 @@ export default class App extends React.Component {
     };
     this.submitSearch = this.submitSearch.bind(this);
     this.changePage = this.changePage.bind(this);
-    this.editRecord = this.editRecord.bind(this);
+    this.editEvent = this.editEvent.bind(this);
   }
 
   submitSearch(e, searchQuery) {
@@ -55,7 +55,7 @@ export default class App extends React.Component {
     });
   }
 
-  editRecord(id, data) {
+  editEvent(id, data) {
     const url = `${ENDPOINTS.API}/${id}`;
     axios.patch(url, data);
   }
@@ -67,7 +67,7 @@ export default class App extends React.Component {
         <div className="title">Search History</div>
         <Search submit={this.submitSearch} />
         {searchResults[0] && (
-          <ResultList results={searchResults} edit={this.editRecord} />
+          <ResultList results={searchResults} edit={this.editEvent} />
         )}
         {lastPage > 1 && (
           <Pages
