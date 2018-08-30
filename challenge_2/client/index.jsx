@@ -1,8 +1,8 @@
-import "./styles/main.css";
+import './styles/main.css';
 
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const HelloWorld = () => <div>Hello, world!</div>;
+import App from './components/App.jsx';
 
-ReactDOM.render(<HelloWorld />, document.getElementById("container"));
+ReactDOM.render(<App />, document.getElementById('container'));
