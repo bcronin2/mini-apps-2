@@ -2,6 +2,11 @@
   --main-text-color: #444444;
 }
 
+html {
+  font-family: sans-serif;
+  color: var(--main-text-color);
+}
+
 .app {
   display: flex;
   flex-direction: column;
@@ -14,18 +19,52 @@
 }
 
 .title {
-  font-family: sans-serif;
   font-size: 2em;
   font-weight: 600;
-  color: var(--main-text-color);
 }
 
+.result-list {
+  max-width: 80%;
+  border: 1px solid var(--main-text-color);
+  padding: 0.5rem;
+}
+
+.result {
+  z-index: 10;
+  border: 1px solid var(--main-text-color);
+  margin: 0.25rem;
+  padding: 0.25rem;
+}
+
+.category {
+  font-weight: 600;
+}
+
+.description {
+  font-style: italic;
+}
+
+.result-edit-container {
+  margin: 0.5rem 0 0;
+}
+
+.result-edit,
 .page-number {
-  padding: 1rem;
   color: blue;
   cursor: pointer;
 }
 
+.description-edit {
+  width: 95%;
+  resize: vertical;
+}
+
+.page-number {
+  padding: 1rem;
+}
+
+.result-edit.selected,
+.result-edit:hover,
 .page-number.selected,
 .page-number:hover {
   font-weight: 800;

@@ -21,6 +21,7 @@ export default class App extends React.Component {
     };
     this.submitSearch = this.submitSearch.bind(this);
     this.changePage = this.changePage.bind(this);
+    this.editRecord = this.editRecord.bind(this);
   }
 
   submitSearch(e, searchQuery) {
@@ -32,7 +33,7 @@ export default class App extends React.Component {
   executeSearch() {
     const { searchQuery } = this.state;
     const url = `${
-      ENDPOINTS.searchApi
+      ENDPOINTS.API
     }/?q=${searchQuery}&_page=1&_limit=${PAGE_SIZE}`;
     axios.get(url).then(results => {
       const { link } = results.headers;
@@ -44,7 +45,7 @@ export default class App extends React.Component {
   changePage(pageNumber) {
     const { searchQuery } = this.state;
     const url = `${
-      ENDPOINTS.searchApi
+      ENDPOINTS.API
     }/?q=${searchQuery}&_page=${pageNumber}&_limit=${PAGE_SIZE}`;
     axios.get(url).then(results => {
       this.setState({
@@ -54,13 +55,20 @@ export default class App extends React.Component {
     });
   }
 
+  editRecord(id, data) {
+    const url = `${ENDPOINTS.API}/${id}`;
+    axios.patch(url, data);
+  }
+
   render() {
     const { searchResults, currentPage, lastPage } = this.state;
     return (
       <div className="app">
         <div className="title">Search History</div>
         <Search submit={this.submitSearch} />
-        {searchResults[0] && <ResultList results={searchResults} />}
+        {searchResults[0] && (
+          <ResultList results={searchResults} edit={this.editRecord} />
+        )}
         {lastPage > 1 && (
           <Pages
             currentPage={currentPage}
