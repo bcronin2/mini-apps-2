@@ -2,3 +2,14 @@ html {
   font-family: sans-serif;
   color: #444444;
 }
+
+.user-input {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-input > * {
+  margin: 0 1rem;
+}
