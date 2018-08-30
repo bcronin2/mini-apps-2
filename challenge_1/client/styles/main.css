@@ -1,3 +1,25 @@
+:root {
+  --main-text-color: #444444;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.app > * {
+  margin: 0.5rem;
+}
+
+.title {
+  color: var(--main-text-color);
+  font-size: 2em;
+  font-weight: 600;
+  font-family: sans-serif;
+}
+
 .page-number {
   color: blue;
   cursor: pointer;

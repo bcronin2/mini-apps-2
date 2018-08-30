@@ -63,14 +63,17 @@ export default class App extends React.Component {
   render() {
     const { searchResults, currentPage, lastPage } = this.state;
     return (
-      <div>
+      <div className="app">
+        <div className="title">Search History</div>
         <Search update={this.updateSearchQuery} submit={this.submitSearch} />
         <ResultList results={searchResults} />
-        <Pages
-          currentPage={currentPage}
-          lastPage={lastPage}
-          changePage={this.changePage}
-        />
+        {lastPage > 1 && (
+          <Pages
+            currentPage={currentPage}
+            lastPage={lastPage}
+            changePage={this.changePage}
+          />
+        )}
       </div>
     );
   }
