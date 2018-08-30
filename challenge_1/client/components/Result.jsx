@@ -16,6 +16,11 @@ export default class Result extends React.Component {
     this.cancelEdit = this.cancelEdit.bind(this);
   }
 
+  componentWillReceiveProps(newProps) {
+    const { result } = newProps;
+    this.setState({ date: result.date, description: result.description });
+  }
+
   startEdit() {
     this.setState({ editing: true });
   }

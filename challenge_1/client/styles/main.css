@@ -45,6 +45,7 @@ html {
 }
 
 .result-edit-container {
+  width: fit-content;
   margin: 0.5rem 0 0;
 }
 
