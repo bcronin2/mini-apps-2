@@ -1,6 +1,8 @@
 import React from 'react';
-import PriceChart from './PriceChart.jsx';
 import 'datejs';
+
+import PriceChart from './PriceChart.jsx';
+import DateSelection from './DateSelection.jsx';
 
 import coinDesk from '../API/coinDeskAPI.js';
 
@@ -25,12 +27,11 @@ export default class App extends React.Component {
   }
 
   updateDates(startDate, endDate) {
-    this.setState({ startDate, endDate });
+    this.setState({ startDate, endDate }, this.getPrices);
   }
 
   getPrices() {
     const { startDate, endDate } = this.state;
-    console.log(startDate);
     coinDesk.getPriceHistory(startDate, endDate, results => {
       const prices = results.data.bpi;
       this.setState({ prices });
@@ -38,10 +39,14 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { prices } = this.state;
+    const { startDate, endDate, prices } = this.state;
     return (
       <div>
-        {/* <DateSelection handleUpdate={this.updateDates} /> */}
+        <DateSelection
+          startDate={startDate}
+          endDate={endDate}
+          handleUpdate={this.updateDates}
+        />
         <PriceChart prices={prices} />
       </div>
     );
