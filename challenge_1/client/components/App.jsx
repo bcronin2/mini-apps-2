@@ -19,19 +19,13 @@ export default class App extends React.Component {
       currentPage: 1,
       lastPage: 1
     };
-    this.updateSearchQuery = this.updateSearchQuery.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
     this.changePage = this.changePage.bind(this);
   }
 
-  updateSearchQuery(e) {
-    const { value } = e.target;
-    this.setState({ searchQuery: value });
-  }
-
-  submitSearch(e) {
+  submitSearch(e, searchQuery) {
     if (e.key === "Enter") {
-      this.executeSearch();
+      this.setState({ searchQuery }, this.executeSearch);
     }
   }
 
@@ -43,7 +37,7 @@ export default class App extends React.Component {
     axios.get(url).then(results => {
       const { link } = results.headers;
       const lastPage = urlParser.getLastPage(link);
-      this.setState({ lastPage, searchResults: results.data });
+      this.setState({ lastPage, currentPage: 1, searchResults: results.data });
     });
   }
 
@@ -65,8 +59,8 @@ export default class App extends React.Component {
     return (
       <div className="app">
         <div className="title">Search History</div>
-        <Search update={this.updateSearchQuery} submit={this.submitSearch} />
-        <ResultList results={searchResults} />
+        <Search submit={this.submitSearch} />
+        {searchResults[0] && <ResultList results={searchResults} />}
         {lastPage > 1 && (
           <Pages
             currentPage={currentPage}
