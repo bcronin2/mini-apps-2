@@ -4,7 +4,8 @@ import 'datejs';
 import PriceChart from './PriceChart.jsx';
 import DateSelection from './DateSelection.jsx';
 
-import coinDesk from '../API/coinDeskAPI.js';
+// import coinDesk from '../API/coinDeskAPI.js';
+import coinCompare from '../API/coinCompareAPI.js';
 
 const TODAY = Date.today().toString('yyyy-MM-dd');
 const WEEK_AGO = Date.today()
@@ -17,7 +18,7 @@ export default class App extends React.Component {
     this.state = {
       startDate: WEEK_AGO,
       endDate: TODAY,
-      prices: {}
+      prices: []
     };
     this.updateDates = this.updateDates.bind(this);
   }
@@ -32,8 +33,7 @@ export default class App extends React.Component {
 
   getPrices() {
     const { startDate, endDate } = this.state;
-    coinDesk.getPriceHistory(startDate, endDate, results => {
-      const prices = results.data.bpi;
+    coinCompare.getPriceHistory(startDate, endDate, prices => {
       this.setState({ prices });
     });
   }
