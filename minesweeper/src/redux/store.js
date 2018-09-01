@@ -1,10 +1,10 @@
-import rootReducer from '.reducers.js';
+import rootReducer from './reducers.js';
 
-var reducer = rootReducer;
-var listeners = [];
-var state;
+let reducer = rootReducer;
+let listeners = [];
+let state;
 
-var store = {
+const store = {
   dispatch(action) {
     state = reducer(state, action);
     listeners.forEach(func => func(state));

@@ -8,4 +8,4 @@ const updateGameBoard = gameBoard => ({
   type: 'UPDATE_GAME_BOARD'
 });
 
-export default { gameStatus, gameBoard };
+module.exports = { updateGameStatus, updateGameBoard };

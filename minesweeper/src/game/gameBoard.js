@@ -6,22 +6,22 @@ class BoardCell {
 }
 
 class GameBoard {
-  constructor(dimension, difficulty = 0.1) {
+  constructor(dimension = 10, difficulty = 0.1) {
     this.board = [];
     for (let i = 0; i < dimension; i++) {
-      board.push([]);
+      this.board.push([]);
       for (let j = 0; j < dimension; j++) {
         const hasMine = Math.random() < difficulty;
-        board[i].push(new BoardCell(hasMine));
+        this.board[i].push(new BoardCell(hasMine));
       }
     }
   }
 
   clickCell(row, col) {
-    board[row][col].isClicked = true;
+    this.board[row][col].isClicked = true;
   }
 
-  countNeighbors(row, coll) {
+  countNeighbors(row, col) {
     let neighbors = 0;
     for (let i = -1; i <= 1; i++) {
       for (let j = -1; j <= 1; j++) {

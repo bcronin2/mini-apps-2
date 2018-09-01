@@ -1,15 +1,16 @@
 import { combineReducers } from 'redux';
+import GameBoard from '../game/gameBoard';
 
 const gameStatus = (state = {}, action) => {
-  const newState = state;
+  let newState = state;
   if (action.type === 'UPDATE_GAME_BOARD') {
     newState = action.gameBoard;
   }
   return newState;
 };
 
-const gameBoard = (state = {}) => {
-  const newState = state;
+const gameBoard = (state = new GameBoard(), action) => {
+  let newState = state;
   if (action.type === 'UPDATE_GAME_STATUS') {
     newState = action.gameBoard;
   }
