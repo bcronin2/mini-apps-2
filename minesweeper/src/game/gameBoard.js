@@ -33,3 +33,5 @@ class GameBoard {
     return neighbors;
   }
 }
+
+export default GameBoard;
