@@ -1,20 +1,21 @@
-const path = require("path");
+const path = require('path');
 
-const ENTRY = path.resolve(__dirname, "client/index.jsx");
-const OUTPUT = { path: path.resolve(__dirname, "public"), filename: "app.js" };
+const ENTRY = path.resolve(__dirname, 'client/index.jsx');
+const OUTPUT = { path: path.resolve(__dirname, 'public'), filename: 'app.js' };
 
 const MODULE = {
   rules: [
     {
       test: /\.jsx?$/,
+      exclude: /node_modules/,
       use: {
-        loader: "babel-loader",
-        options: { presets: ["@babel/react", "@babel/env"] }
+        loader: 'babel-loader',
+        options: { presets: ['@babel/react', '@babel/env'] }
       }
     },
     {
       test: /\.css$/,
-      use: [{ loader: "style-loader" }, { loader: "css-loader" }]
+      use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
     }
   ]
 };
@@ -23,6 +24,6 @@ module.exports = {
   entry: ENTRY,
   output: OUTPUT,
   module: MODULE,
-  devtool: "source-map",
+  devtool: 'source-map',
   watch: true
 };
