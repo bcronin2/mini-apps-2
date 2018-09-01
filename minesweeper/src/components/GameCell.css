@@ -1,5 +1,14 @@
-.cell {
-  width: 10px;
-  height: 10px;
-  border: 1px black;
+.game-cell {
+  width: 20px;
+  height: 20px;
+  border: 1px black solid;
+  background-color: lightgrey;
+}
+
+.game-cell:hover {
+  background-color: darkgrey;
+}
+
+.game-cell.clicked {
+  background-color: grey;
 }

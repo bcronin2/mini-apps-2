@@ -1,14 +1,18 @@
 import React from 'react';
-import GameCellContainer from '../containers/GameCellContainer';
+import GameCell from './GameCell';
 
-export default ({ gameBoard }) => {
+import './GameBoard.css';
+
+export default ({ gameBoard, clickCell }) => {
+  console.log(gameBoard.board[0][0]);
   return (
-    <div>
+    <div className="game-board">
       {gameBoard.board.map((row, rowIndex) => (
-        <div>
-          {row.map((cell, colIndex) => (
-            <GameCellContainer cell={cell} row={rowIndex} col={colIndex} />
-          ))}
+        <div className="game-row">
+          {row.map((cell, colIndex) => {
+            console.log(cell);
+            return <GameCell handleClick={() => clickCell(rowIndex, colIndex)} cell={cell} />;
+          })}
         </div>
       ))}
     </div>

@@ -2,6 +2,10 @@ import React from 'react';
 
 import './GameCell.css';
 
-export default ({ cell, row, col, clickCell }) => {
-  return <span onClick={() => clickCell(row, col)}>{cell.neighbors}</span>;
+export default ({ cell, handleClick }) => {
+  return (
+    <div className={`game-cell ${cell.isClicked ? 'clicked' : ''}`} onClick={handleClick}>
+      {cell.isClicked && cell.neighbors ? cell.neighbors : ''}
+    </div>
+  );
 };
