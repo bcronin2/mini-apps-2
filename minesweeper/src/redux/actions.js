@@ -1,12 +1,11 @@
-const updateGameStatus = gameStatus => ({
-  gameStatus,
-  type: 'UPDATE_GAME_STATUS'
-});
-
 const clickCell = (row, col) => ({
   row,
   col,
-  type: 'UPDATE_GAME_BOARD'
+  type: 'CLICK_CELL'
 });
 
-module.exports = { updateGameStatus, clickCell };
+const startNewGame = () => ({
+  type: 'NEW_GAME'
+});
+
+export { clickCell, startNewGame };
