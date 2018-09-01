@@ -1,11 +1,12 @@
 import React from 'react';
 import BoardCell from './BoardCell';
 
-export default ({ gameBoard, updateGameBoard }) => {
+export default ({ gameBoard, clickCell }) => {
   const handleClick = (row, col) => {
-    gameBoard.clickCell(row, col);
-    updateGameBoard(gameBoard);
+    console.log('clicking');
+    clickCell(row, col);
   };
+  console.log(gameBoard);
   return (
     <div>
       {gameBoard.board.map((row, rowIndex) => (

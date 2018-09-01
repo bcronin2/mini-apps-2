@@ -1,6 +1,6 @@
 import GameBoard from '../components/GameBoard.js';
 import { connect } from 'react-redux';
-import { updateGameBoard } from '../redux/actions.js';
+import { clickCell } from '../redux/actions.js';
 
 const mapStateToProps = state => {
   return { gameBoard: state.gameBoard };
@@ -8,8 +8,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateGameBoard: board => {
-      dispatch(updateGameBoard(board));
+    clickCell: (row, col) => {
+      dispatch(clickCell(row, col));
     }
   };
 };

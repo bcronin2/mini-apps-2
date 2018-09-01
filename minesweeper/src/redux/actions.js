@@ -3,9 +3,10 @@ const updateGameStatus = gameStatus => ({
   type: 'UPDATE_GAME_STATUS'
 });
 
-const updateGameBoard = gameBoard => ({
-  gameBoard,
+const clickCell = (row, col) => ({
+  row,
+  col,
   type: 'UPDATE_GAME_BOARD'
 });
 
-module.exports = { updateGameStatus, updateGameBoard };
+module.exports = { updateGameStatus, clickCell };

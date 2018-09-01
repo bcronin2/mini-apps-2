@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default ({ cell, handleClick }) => {
-  return <span onClick={handleClick}>Cell - {cell.hasMine}</span>;
+  return <span onClick={handleClick}>{JSON.stringify(cell)}</span>;
 };
