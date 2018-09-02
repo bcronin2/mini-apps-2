@@ -39,7 +39,7 @@ const clearAdjacentCells = (board, row, col) => {
   }
 };
 
-const startGame = (dimension = 5, difficulty = 0.1) => {
+const startGame = (dimension = 8, difficulty = 0.1) => {
   const board = [];
   for (let i = 0; i < dimension; i++) {
     board.push([]);
@@ -52,18 +52,6 @@ const startGame = (dimension = 5, difficulty = 0.1) => {
   return { board, lost: false };
 };
 
-const countFreeCells = board => {
-  let freeCells = 0;
-  board.forEach(row =>
-    row.forEach(cell => {
-      if (!cell.hasMine && !cell.isClicked) {
-        freeCells++;
-      }
-    })
-  );
-  return freeCells;
-};
-
 const clickCell = ({ board }, row, col) => {
   const newBoard = board.slice();
   const cell = newBoard[row][col];
@@ -74,6 +62,18 @@ const clickCell = ({ board }, row, col) => {
     clearAdjacentCells(newBoard, row, col);
   }
   return { board: newBoard, lost: false };
+};
+
+const countFreeCells = board => {
+  let freeCells = 0;
+  board.forEach(row =>
+    row.forEach(cell => {
+      if (!cell.hasMine && !cell.isClicked) {
+        freeCells++;
+      }
+    })
+  );
+  return freeCells;
 };
 
 export { startGame, clickCell, countFreeCells };

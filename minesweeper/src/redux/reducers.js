@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { startGame, clickCell } from '../game/gameplay';
+import { startGame, clickCell } from '../game/game';
 
-const gameplay = (state = startGame(), action) => {
+const game = (state = startGame(), action) => {
   let newState = state;
   if (action.type === 'CLICK_CELL') {
     newState = clickCell(state, action.row, action.col);
@@ -11,6 +11,6 @@ const gameplay = (state = startGame(), action) => {
   return newState;
 };
 
-const rootReducer = combineReducers({ gameplay });
+const rootReducer = combineReducers({ game });
 
 export default rootReducer;

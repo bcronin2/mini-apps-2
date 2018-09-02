@@ -1,6 +1,6 @@
 import React from 'react';
 import GameCell from './GameCell';
-import { countFreeCells } from '../game/gameplay';
+import { countFreeCells } from '../game/game';
 
 import './GameBoard.css';
 
