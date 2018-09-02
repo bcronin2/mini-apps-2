@@ -11,7 +11,8 @@ export default ({ board, lost, clickCell, flagCell, startNewGame }) => {
       clickCell(row, col);
     }
   };
-  const handleFlag = (row, col) => {
+  const handleFlag = (e, row, col) => {
+    e.preventDefault();
     if (freeCells > 0 && !lost && !board[row][col].isClicked) {
       flagCell(row, col);
     }
@@ -25,7 +26,7 @@ export default ({ board, lost, clickCell, flagCell, startNewGame }) => {
               <GameCell
                 cell={cell}
                 handleClick={() => handleClick(rowIndex, colIndex)}
-                handleFlag={() => handleFlag(rowIndex, colIndex)}
+                handleFlag={e => handleFlag(e, rowIndex, colIndex)}
               />
             );
           })}
