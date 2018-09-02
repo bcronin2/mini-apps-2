@@ -1,9 +1,11 @@
 import React from 'react';
 import GameCell from './GameCell';
+import { countFreeCells } from '../game/gameplay';
 
 import './GameBoard.css';
 
-export default ({ board, freeCells, lost, clickCell, startNewGame }) => {
+export default ({ board, lost, clickCell, startNewGame }) => {
+  const freeCells = countFreeCells(board);
   const handleClick = (row, col) => {
     if (freeCells > 0 && !lost) {
       clickCell(row, col);
@@ -18,13 +20,12 @@ export default ({ board, freeCells, lost, clickCell, startNewGame }) => {
           })}
         </div>
       ))}
-      {lost && (
+      {(lost || freeCells === 0) && (
         <div>
-          <div>GAME OVER</div>
+          <div>{lost ? 'GAME OVER' : 'YOU WON!'}</div>
           <button onClick={startNewGame}>Play again</button>
         </div>
       )}
-      {freeCells === 0 && 'YOU WON'}
     </div>
   );
 };

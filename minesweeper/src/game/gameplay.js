@@ -1,27 +1,7 @@
-let board = [];
-let freeCells = 0;
-
 const makeCell = hasMine => ({
   hasMine,
   isClicked: false
 });
-
-const clearAdjacentCells = (board, row, col) => {
-  for (let i = -1; i <= 1; i++) {
-    for (let j = -1; j <= 1; j++) {
-      if (board[row + i] && board[row + i][col + j]) {
-        if (!board[row + i][col + j].isClicked) {
-          board[row + i][col + j].isClicked = true;
-          freeCells--;
-          if (board[row + i][col + j].neighbors === 0) {
-            console.log('clearing cells at', row + i, col + j);
-            clearAdjacentCells(board, row + i, col + j);
-          }
-        }
-      }
-    }
-  }
-};
 
 const getNeighborsForCell = (board, row, col) => {
   let neighbors = 0;
@@ -32,44 +12,68 @@ const getNeighborsForCell = (board, row, col) => {
       }
     }
   }
-  board[row][col].neighbors = neighbors;
+  return neighbors;
 };
 
-const getNeighbors = board => {
+const countNeighbors = board => {
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[0].length; j++) {
-      getNeighborsForCell(board, i, j);
+      board[i][j].neighbors = getNeighborsForCell(board, i, j);
+    }
+  }
+  return board;
+};
+
+const clearAdjacentCells = (board, row, col) => {
+  for (let i = -1; i <= 1; i++) {
+    for (let j = -1; j <= 1; j++) {
+      if (board[row + i] && board[row + i][col + j]) {
+        if (!board[row + i][col + j].isClicked) {
+          board[row + i][col + j].isClicked = true;
+          if (board[row + i][col + j].neighbors === 0) {
+            clearAdjacentCells(board, row + i, col + j);
+          }
+        }
+      }
     }
   }
 };
 
-const startGame = (dimension = 10, difficulty = 0.1) => {
-  board = [];
-  freeCells = dimension * dimension;
+const startGame = (dimension = 5, difficulty = 0.1) => {
+  const board = [];
   for (let i = 0; i < dimension; i++) {
     board.push([]);
     for (let j = 0; j < dimension; j++) {
       const hasMine = Math.random() < difficulty;
       board[i].push(makeCell(hasMine));
-      if (hasMine) freeCells--;
     }
   }
-  getNeighbors(board);
-  return { board, freeCells, lost: false };
+  countNeighbors(board);
+  return { board, lost: false };
+};
+
+const countFreeCells = board => {
+  let freeCells = 0;
+  board.forEach(row =>
+    row.forEach(cell => {
+      if (!cell.hasMine && !cell.isClicked) {
+        freeCells++;
+      }
+    })
+  );
+  return freeCells;
 };
 
 const clickCell = ({ board }, row, col) => {
-  const cell = board[row][col];
-  if (cell.isClicked) return { board, freeCells, lost: false };
+  const newBoard = board.slice();
+  const cell = newBoard[row][col];
   cell.isClicked = true;
   if (cell.hasMine) {
-    return { board, freeCells, lost: true };
-  } else if (cell.neighbors > 0) {
-    freeCells--;
-  } else {
-    clearAdjacentCells(board, row, col);
+    return { board: newBoard, lost: true };
+  } else if (cell.neighbors === 0) {
+    clearAdjacentCells(newBoard, row, col);
   }
-  return { board, freeCells, lost: false };
+  return { board: newBoard, lost: false };
 };
 
-export { startGame, clickCell };
+export { startGame, clickCell, countFreeCells };

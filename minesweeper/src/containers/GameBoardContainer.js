@@ -3,8 +3,8 @@ import GameBoard from '../components/GameBoard';
 import { clickCell, startNewGame } from '../redux/actions';
 
 const mapStateToProps = state => {
-  const { board, freeCells, lost } = state.gameplay;
-  return { board, freeCells, lost };
+  const { board, lost } = state.gameplay;
+  return { board, lost };
 };
 
 const mapDispatchToProps = dispatch => ({
