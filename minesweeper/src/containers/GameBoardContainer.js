@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import GameBoard from '../components/GameBoard';
-import { clickCell, startNewGame } from '../redux/actions';
+import { clickCell, flagCell, startNewGame } from '../redux/actions';
 
 const mapStateToProps = state => {
   const { board, lost } = state.game;
@@ -10,6 +10,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   clickCell: (row, col) => {
     dispatch(clickCell(row, col));
+  },
+  flagCell: (row, col) => {
+    dispatch(flagCell(row, col));
   },
   startNewGame: () => {
     dispatch(startNewGame());

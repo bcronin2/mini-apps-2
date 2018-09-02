@@ -4,11 +4,16 @@ import { countFreeCells } from '../game/game';
 
 import './GameBoard.css';
 
-export default ({ board, lost, clickCell, startNewGame }) => {
+export default ({ board, lost, clickCell, flagCell, startNewGame }) => {
   const freeCells = countFreeCells(board);
   const handleClick = (row, col) => {
-    if (freeCells > 0 && !lost) {
+    if (freeCells > 0 && !lost && !board[row][col].isFlagged) {
       clickCell(row, col);
+    }
+  };
+  const handleFlag = (row, col) => {
+    if (freeCells > 0 && !lost && !board[row][col].isClicked) {
+      flagCell(row, col);
     }
   };
   return (
@@ -16,7 +21,13 @@ export default ({ board, lost, clickCell, startNewGame }) => {
       {board.map((row, rowIndex) => (
         <div className="game-row">
           {row.map((cell, colIndex) => {
-            return <GameCell handleClick={() => handleClick(rowIndex, colIndex)} cell={cell} />;
+            return (
+              <GameCell
+                cell={cell}
+                handleClick={() => handleClick(rowIndex, colIndex)}
+                handleFlag={() => handleFlag(rowIndex, colIndex)}
+              />
+            );
           })}
         </div>
       ))}

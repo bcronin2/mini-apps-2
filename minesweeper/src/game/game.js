@@ -64,6 +64,13 @@ const clickCell = ({ board }, row, col) => {
   return { board: newBoard, lost: false };
 };
 
+const flagCell = ({ board }, row, col) => {
+  const newBoard = board.slice();
+  const cell = newBoard[row][col];
+  cell.isFlagged = !cell.isFlagged;
+  return { board: newBoard, lost: false };
+};
+
 const countFreeCells = board => {
   let freeCells = 0;
   board.forEach(row =>
@@ -76,4 +83,4 @@ const countFreeCells = board => {
   return freeCells;
 };
 
-export { startGame, clickCell, countFreeCells };
+export { startGame, clickCell, flagCell, countFreeCells };
